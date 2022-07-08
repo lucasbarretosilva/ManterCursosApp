@@ -1,0 +1,37 @@
+<div class="container">
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" class="mt-5">
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Nome do Curso</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" formControlName="descricao" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Data de Início do Curso</label>
+        <div class="col-sm-10">
+            <input type="date" class="form-control form-control-sm" formControlName="dataInicio" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Data de Término</label>
+        <div class="col-sm-10">
+            <input type="date" class="form-control form-control-sm" formControlName="dataTermino" rows="4"
+                maxlength="200">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Quantidade de Alunos (Opcional)
+            </label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control form-control-sm" formControlName="qtdAlunos">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <button type="subimt" class="btn btn-secondary">Salvar</button>
+           
+            <button type="button" class="btn btn-primary" routerLink="/cursos">Voltar</button>
+        </div>
+    </div>
+</form>
+</div>
