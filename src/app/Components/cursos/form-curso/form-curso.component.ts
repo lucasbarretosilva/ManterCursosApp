@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Categoria } from 'src/app/Models/Categoria.model';
 import { Curso } from 'src/app/Models/Curso.model';
+import { CategoriasService } from 'src/app/Services/categorias.service';
 import { CursosService } from 'src/app/Services/cursos.service';
 
 @Component({
@@ -14,11 +16,13 @@ export class FormCursoComponent implements OnInit {
   formulario: any;
   id: any;
   curso: Curso | undefined;
+  cat: Categoria[] = [];
   constructor(
     private cursosService: CursosService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private categoriasService: CategoriasService
 
   ) { this.formulario = new FormGroup({
     descricao: new FormControl(null, Validators.required),
@@ -26,8 +30,11 @@ export class FormCursoComponent implements OnInit {
    
     dataTermino: new FormControl(null, Validators.required),
     qtdAlunos: new FormControl(null, Validators.required),
+    categoriaId: new FormControl(null),
 
   });}
+
+ 
 
   enviarFormulario(): void {
     if (this.formulario.valid) {
@@ -39,6 +46,10 @@ export class FormCursoComponent implements OnInit {
         this.cursosService.atualizar(curso).subscribe(() => {
           this.toastr.success('Dados atualizados', 'Sucesso!');
           this.router.navigate(['cursos']);
+        },
+        (error)=>{
+          console.log(error)
+          this.toastr.error(error.error.message);
         });
       } else {
         this.cursosService.salvar(curso).subscribe(
@@ -46,7 +57,7 @@ export class FormCursoComponent implements OnInit {
           (resposta) => {
           this.id = resposta.cursoId;
           this.toastr.success(
-            'Cadastro Realizado! Clique em Conteúdos para continuar o cadastro ',
+            'Cadastro Realizado!',
             'Sucesso!'
           );
         },
@@ -62,6 +73,30 @@ export class FormCursoComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.obterTodos();
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.id = params.get('id');
+      this.cursosService.obterPorId(this.id).subscribe((resultado) => {
+        this.formulario.patchValue(resultado);
+      });
+    });
+    
   }
+
+  obterTodos(): void{
+    this.categoriasService.obterCategorias().subscribe(
+      (resposta)=>{
+        this.cat = resposta;
+        
+        
+       
+      },
+      (error)=>{
+        this.toastr.error('Ocorreu um erro', 'Atenção!');
+      }
+    )
+  }
+
+  
 
 }

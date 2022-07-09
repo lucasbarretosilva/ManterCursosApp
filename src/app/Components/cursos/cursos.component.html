@@ -10,6 +10,7 @@
         <th scope="col">Descrição</th>
         <th scope="col">Data de Início</th>
         <th scope="col">Data de Conclusão</th>
+        <th scope="col">Categoria</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
@@ -19,8 +20,12 @@
         <td>{{ c.descricao }}</td>
         <td>{{ c.dataInicio  | date: 'dd/MM/yy' }}</td>
         <td>{{ c.dataTermino | date: 'dd/MM/yy' }}</td>
+        <td>{{ c.categoriaId }}</td>
         <td><button (click)="abrirModal(modalConfirmacaoDeletar,c.cursoId)"
-        class="btn btn-danger">Deletar</button></td>
+        class="btn btn-danger">Deletar</button>
+        <button class="btn btn-secondary" [routerLink]="['/curso/editar',c.cursoId]">Editar</button>
+        
+      </td>
       </tr>
      
     </tbody>

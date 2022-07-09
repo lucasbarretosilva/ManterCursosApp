@@ -38,5 +38,8 @@ export class CursosService {
     return this.http.post<Curso>(this.url, c, httpOptions);
   } 
 
+  obterPorId(id:number):Observable<Curso>{
+    return this.http.get<Curso>(`${this.url}/${id}`);
+  }
 
 }

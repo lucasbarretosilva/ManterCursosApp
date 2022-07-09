@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CursosService } from './Services/cursos.service';
 import { FormCursoComponent } from './Components/cursos/form-curso/form-curso.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CategoriasService } from './Services/categorias.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule 
     
   ],
-  providers: [HttpClientModule, CursosService],
+  providers: [HttpClientModule, CursosService, CategoriasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

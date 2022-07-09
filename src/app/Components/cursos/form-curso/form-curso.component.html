@@ -25,6 +25,11 @@
         <div class="col-sm-10">
             <input type="number" class="form-control form-control-sm" formControlName="qtdAlunos">
         </div>
+        <select formControlName="categoriaId">
+            <option *ngFor="let c of cat" [value]="c.categoriaId">
+                 {{c.nome}}
+            </option>
+        </select>
     </div>
     <div class="row mb-3">
         <div class="col-12">

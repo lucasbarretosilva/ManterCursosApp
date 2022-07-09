@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Curso } from 'src/app/Models/Curso.model';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { CategoriasService } from 'src/app/Services/categorias.service';
+import { Categoria } from 'src/app/Models/Categoria.model';
 
 @Component({
   selector: 'app-cursos',
@@ -18,19 +20,23 @@ export class CursosComponent implements OnInit {
     centered:true
   };
 
-
+  
 
   cursos: Curso[] = [];
+  categorias: Categoria[]=[];
   
   constructor(private cursoService: CursosService,
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private categoriaService: CategoriasService
+
    ) { }
 
   ngOnInit(): void {
     this.obterTodos();
+    this.obterCat();
     
   }
 
@@ -71,4 +77,26 @@ export class CursosComponent implements OnInit {
       }
     )
   }
+
+  obterCat(): void{
+    this.categoriaService.obterCategorias().subscribe(
+      (resposta)=>{
+        this.categorias = resposta;
+        
+        
+       
+      },
+      (error)=>{
+        this.toastr.error('Ocorreu um erro', 'Atenção!');
+      }
+    )
+  }
+
+   
+     
+
+    
+
+
+
 }
