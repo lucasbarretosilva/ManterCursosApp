@@ -24,6 +24,8 @@ export class CursosComponent implements OnInit {
 
   cursos: Curso[] = [];
   categorias: Categoria[]=[];
+  cursosFiltrados: any = [];
+  private _filtroLista: string = '';
   
   constructor(private cursoService: CursosService,
     private toastr: ToastrService,
@@ -39,6 +41,23 @@ export class CursosComponent implements OnInit {
     this.obterCat();
     
   }
+
+  public get filtroLista(){
+    return this._filtroLista
+  }
+
+  public set filtroLista(value: string){
+   this._filtroLista = value;
+   this.cursosFiltrados = this.filtroLista ? this.filtrarCursos(this.filtroLista) : this.cursos;
+ }
+
+ filtrarCursos(filtrarPor: string): any{
+   filtrarPor = filtrarPor.toLocaleLowerCase();
+   return this.cursos.filter(
+     (cursos: {descricao:string}) => cursos.descricao.toLocaleLowerCase().indexOf(filtrarPor)!== -1
+     
+    );
+ }
 
   abrirModal(htmlModal:any,id:number) {
     this.modalService.open(htmlModal,this.modalOptions).result.then(
@@ -58,7 +77,7 @@ export class CursosComponent implements OnInit {
         this.obterTodos();
       },
       (error)=>{
-        this.toastr.error('Ocorreu um erro', 'Atenção!');
+        this.toastr.error('Cursos já realizados não podem ser excluídos', 'Atenção!');
       }
     )
   }
@@ -68,7 +87,7 @@ export class CursosComponent implements OnInit {
     this.cursoService.obterTodos().subscribe(
       (resposta)=>{
         this.cursos = resposta;
-        
+        this.cursosFiltrados= this.cursos;
         
        
       },

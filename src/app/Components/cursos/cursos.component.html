@@ -1,5 +1,11 @@
 
-<div class="container">
+<div class="container" style="margin-top:2em ;">
+  <div action="" class="form-inline">
+    <div class="form-group md-2">
+        <input class="form-control mb2-2" placeholder="Buscar" [(ngModel)]="filtroLista">
+    </div>
+</div>
+<hr>
 <div >
     <button class="btn btn-secondary" routerLink="/curso/adicionar">Adicionar</button>
 </div>
@@ -11,16 +17,19 @@
         <th scope="col">Data de Início</th>
         <th scope="col">Data de Conclusão</th>
         <th scope="col">Categoria</th>
+        <th scope="col">Quantidade de Alunos</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
-    <tbody >
-      <tr *ngFor="let c of cursos">
+    <tbody  >
+      <tr *ngFor="let c of cursosFiltrados">
        
         <td>{{ c.descricao }}</td>
         <td>{{ c.dataInicio  | date: 'dd/MM/yy' }}</td>
         <td>{{ c.dataTermino | date: 'dd/MM/yy' }}</td>
+       
         <td>{{ c.categoriaId }}</td>
+        <td>{{ c.qtdAlunos }}</td>
         <td><button (click)="abrirModal(modalConfirmacaoDeletar,c.cursoId)"
         class="btn btn-danger">Deletar</button>
         <button class="btn btn-secondary" [routerLink]="['/curso/editar',c.cursoId]">Editar</button>

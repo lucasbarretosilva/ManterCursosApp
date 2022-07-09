@@ -17,13 +17,16 @@ import { CursosService } from './Services/cursos.service';
 import { FormCursoComponent } from './Components/cursos/form-curso/form-curso.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriasService } from './Services/categorias.service';
+import { NavbarComponent } from './Components/navbar/navbar.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CursosComponent,
-    FormCursoComponent
+    FormCursoComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { CategoriasService } from './Services/categorias.service';
     ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    CommonModule
     
   ],
   providers: [HttpClientModule, CursosService, CategoriasService],
