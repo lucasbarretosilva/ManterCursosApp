@@ -7,7 +7,7 @@ import { Curso } from 'src/app/Models/Curso.model';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CategoriasService } from 'src/app/Services/categorias.service';
 import { Categoria } from 'src/app/Models/Categoria.model';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
@@ -26,6 +26,7 @@ export class CursosComponent implements OnInit {
   categorias: Categoria[]=[];
   cursosFiltrados: any = [];
   private _filtroLista: string = '';
+  public filtroData: string = '';
   
   constructor(private cursoService: CursosService,
     private toastr: ToastrService,
@@ -77,7 +78,7 @@ export class CursosComponent implements OnInit {
         this.obterTodos();
       },
       (error)=>{
-        this.toastr.error('Cursos já realizados não podem ser excluídos', 'Atenção!');
+        this.toastr.error('Cursos já realizados não podem ser excluídos. Cod (D1)', 'Atenção!');
       }
     )
   }
@@ -110,6 +111,11 @@ export class CursosComponent implements OnInit {
       }
     )
   }
+
+  FiltraCategoria(id: number): Categoria{
+    return this.categorias.find(cat => cat.categoriaId == id)!;
+  }
+
 
    
      

@@ -29,7 +29,7 @@ export class FormCursoComponent implements OnInit {
     dataInicio: new FormControl(null, Validators.required),
    
     dataTermino: new FormControl(null, Validators.required),
-    qtdAlunos: new FormControl(null, Validators.required),
+    qtdAlunos: new FormControl(null),
     categoriaId: new FormControl(null),
 
   });}
@@ -67,7 +67,7 @@ export class FormCursoComponent implements OnInit {
         });
       }
     } else {
-      this.toastr.error('Preencha todos os campos', 'Atenção!');
+      this.toastr.error('Preencha os campos obrigatórios', 'Atenção!');
     }
   }
 

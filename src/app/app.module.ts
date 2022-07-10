@@ -19,6 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriasService } from './Services/categorias.service';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    Ng2SearchPipeModule
+    
+    
     
   ],
   providers: [HttpClientModule, CursosService, CategoriasService],
