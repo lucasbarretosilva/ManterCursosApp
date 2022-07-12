@@ -7,7 +7,9 @@
   <div class="row">
 
     <div class="col-md-2">
-        <button class="btn btn-secondary" routerLink="">Voltar</button>
+        <button class="btn btn-primary" routerLink=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+          <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>  Voltar</button>
     </div>
   
     <div class="col-md-3" style="width: 400px;" >
@@ -15,15 +17,27 @@
        
         
     </div>
+<form #form="ngForm"
+(submit)="FiltraPeriodo(form)" id="filterForm" class="col-md-2" style="margin-left: 10em;">
+<div class="col-md-2" style="display: flex; flex-direction: column; width: 200px; margin-left: 2em;">
+  <label for="" style="font-weight:bold ;">Início</label>
+  <input  type="date" name="pegaComeco" #pegaComeco="ngModel" [ngModel]="comeco" >
+</div>
+<div class="col-md-2" style="display: flex; flex-direction: column; width: 200px; margin-left: 2em;">
+  <label for="" style="font-weight:bold ;">Final</label>
+  <input type="date"  name="pegaFinal" #pegaFinal="ngModel" [ngModel]="final" >
+  <button *ngIf="ativaBusca" form="filterForm" id="btnSubmit" class="btn btn-primary" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+  </svg></button>
+  <button *ngIf="ativaLimpar" (click)="limpar(form)" type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Limpar</button>
+</div>
 
-<div class="col-md-4" style="display: flex; flex-direction: column; width: 200px; margin-left: 5em;">
-  <label for="" style="font-weight:bold ;">Pesquisar por data</label>
-  <input type="date" [(ngModel)]="filtroData" >
+</form>
 </div>
-</div>
+
 <hr>
 <div >
-    <button class="btn btn-primary" routerLink="/curso/adicionar">Adicionar</button>
+    <button class="btn btn-success" routerLink="/curso/adicionar">Adicionar</button>
 </div>
 <table class="table">
     <thead>
@@ -38,7 +52,7 @@
       </tr>
     </thead>
     <tbody  >
-      <tr *ngFor="let c of cursosFiltrados | filter: filtroData;">
+      <tr *ngFor="let c of cursosFiltrados">
        
         <td>{{ c.descricao }}</td>
         <td>{{ c.dataInicio  | date: 'dd/MM/yy' }}</td>

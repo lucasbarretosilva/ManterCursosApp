@@ -8,6 +8,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { CategoriasService } from 'src/app/Services/categorias.service';
 import { Categoria } from 'src/app/Models/Categoria.model';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
@@ -20,8 +21,9 @@ export class CursosComponent implements OnInit {
     centered:true
   };
 
-  
-
+  ativaBusca = true;
+  ativaLimpar = false;
+   
   cursos: Curso[] = [];
   categorias: Categoria[]=[];
   cursosFiltrados: any = [];
@@ -42,6 +44,9 @@ export class CursosComponent implements OnInit {
     this.obterCat();
     
   }
+
+  comeco!: Date;
+  final!: Date;
 
   public get filtroLista(){
     return this._filtroLista
@@ -116,7 +121,49 @@ export class CursosComponent implements OnInit {
     return this.categorias.find(cat => cat.categoriaId == id)!;
   }
 
+  FiltraPeriodo(form: NgForm){
+  
+    let inicio = form.controls["pegaComeco"].value;
+    let final = form.controls["pegaFinal"].value;
+    this.ativaLimpar = true;
+    this.ativaBusca = false;
 
+
+
+    if(inicio && inicio.length && final && final.length){
+    
+      this.cursosFiltrados =
+      this.cursos.filter(c => new Date(c.dataInicio) >= new Date(inicio)
+      && new Date(c.dataInicio).setDate(new Date(c.dataInicio).getDate()-1) <= new Date(final).getTime());
+      return;
+    }
+
+    if(inicio && inicio.length){
+      console.log(inicio);
+      this.cursosFiltrados =
+      this.cursos.filter(c => new Date(c.dataInicio) >= new Date(inicio));
+    }
+    else{
+      this.toastr.warning('Data de início não preenchida, para uma busca mais precisa, preeencha a data inicial !', 'Dados não refinados');
+    }
+
+    if(final && final.length){
+      console.log(final);
+      this.cursosFiltrados =
+      this.cursos.filter(c => new Date(c.dataTermino) <= new Date(final));
+    }
+    else{
+      this.toastr.warning('Preencha a data final para um filtro mais preciso !', 'Dados não refinados');
+    }
+  }
+
+  limpar(form: NgForm){
+    form.resetForm();
+    this.cursosFiltrados = this.cursos;
+    this.ativaLimpar = false;
+    this.ativaBusca = true;
+  }
+}
    
      
 
@@ -124,4 +171,4 @@ export class CursosComponent implements OnInit {
 
 
 
-}
+
