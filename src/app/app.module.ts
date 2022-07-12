@@ -20,6 +20,7 @@ import { CategoriasService } from './Services/categorias.service';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { LogComponent } from './Components/log/log.component';
 
 
 
@@ -29,7 +30,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     HomeComponent,
     CursosComponent,
     FormCursoComponent,
-    NavbarComponent
+    NavbarComponent,
+    LogComponent
   ],
   imports: [
     BrowserModule,
