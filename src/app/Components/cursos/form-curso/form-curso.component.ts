@@ -78,6 +78,8 @@ export class FormCursoComponent implements OnInit {
       this.id = params.get('id');
       this.cursosService.obterPorId(this.id).subscribe((resultado) => {
         this.formulario.patchValue(resultado);
+        
+        
       });
     });
     
