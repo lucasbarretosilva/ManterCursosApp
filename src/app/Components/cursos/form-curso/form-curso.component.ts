@@ -67,7 +67,7 @@ export class FormCursoComponent implements OnInit {
         });
       }
     } else {
-      this.toastr.error('Preencha os campos obrigatórios', 'Atenção!');
+      this.toastr.error('Preencha os campos obrigatórios * ', 'Atenção!');
     }
   }
 
@@ -78,6 +78,8 @@ export class FormCursoComponent implements OnInit {
       this.id = params.get('id');
       this.cursosService.obterPorId(this.id).subscribe((resultado) => {
         this.formulario.patchValue(resultado);
+        this.formulario.controls['dataInicio'].setValue(this.converterData(resultado.dataInicio));
+        this.formulario.controls['dataTermino'].setValue(this.converterData(resultado.dataTermino));
         
         
       });
@@ -85,10 +87,15 @@ export class FormCursoComponent implements OnInit {
     
   }
 
+  converterData(date:any):Date{
+       return date.split('T')[0]
+  }
+
   obterTodos(): void{
     this.categoriasService.obterCategorias().subscribe(
       (resposta)=>{
         this.cat = resposta;
+
         
         
        
