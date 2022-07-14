@@ -59,7 +59,9 @@ export class FormCursoComponent implements OnInit {
           this.toastr.success(
             'Cadastro Realizado!',
             'Sucesso!'
+
           );
+          this.router.navigate(['cursos']);
         },
         (error)=>{
           console.log(error)

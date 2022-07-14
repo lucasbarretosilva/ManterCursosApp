@@ -163,6 +163,12 @@ export class CursosComponent implements OnInit {
     this.ativaLimpar = false;
     this.ativaBusca = true;
   }
+
+  converterData(date:any):Date{
+    return date.split('T')[0]
+}
+
+
 }
    
      
