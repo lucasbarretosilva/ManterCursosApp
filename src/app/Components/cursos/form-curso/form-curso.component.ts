@@ -30,7 +30,7 @@ export class FormCursoComponent implements OnInit {
    
     dataTermino: new FormControl(null, Validators.required),
     qtdAlunos: new FormControl(null),
-    categoriaId: new FormControl(null),
+    categoriaId: new FormControl(null, Validators.required),
 
   });}
 
